@@ -1,0 +1,167 @@
+@import "tailwindcss";
+
+@import '../styles/tailwind.css';
+@import '../styles/theme.css';
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
+
+  /* Overwrite indigo to map to Finsight's signature Corporate Purple */
+  --color-indigo-50: #f7f4fc;
+  --color-indigo-100: #efeafd;
+  --color-indigo-200: #dfd5f9;
+  --color-indigo-300: #c6b6f4;
+  --color-indigo-400: #a58eec;
+  --color-indigo-500: #7b52ab; /* Active Purple */
+  --color-indigo-600: #5D3B84; /* FINSIGHT Signature Purple */
+  --color-indigo-650: #4e3070;
+  --color-indigo-700: #3f255c;
+  --color-indigo-850: #25123d;
+  --color-indigo-900: #1b0a2e;
+
+  /* Overwrite slate to map to crisp, institutional Slate-White */
+  --color-slate-50: #f8f9fc;
+  --color-slate-100: #f1f3f7;
+  --color-slate-200: #e2e6ea;
+  --color-slate-300: #cbd2d9;
+  --color-slate-400: #94a3b8;
+  --color-slate-500: #626e7a;
+  --color-slate-650: #48535e;
+  --color-slate-800: #1f252c;
+  --color-slate-900: #12161a;
+
+  /* Overwrite zinc to map to coordinates */
+  --color-zinc-50: #f8f9fc;
+  --color-zinc-100: #f1f3f7;
+  --color-zinc-200: #e2e6ea;
+  --color-zinc-300: #cbd2d9;
+  --color-zinc-400: #94a3b8;
+  --color-zinc-500: #626e7a;
+  --color-zinc-800: #1f252c;
+  --color-zinc-900: #12161a;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-sans);
+  background-color: #f8f9fc;
+}
+
+body {
+  background-color: #f8f9fc;
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: -15%;
+  right: -5%;
+  width: 55vw;
+  height: 55vw;
+  z-index: -1;
+  background-image: radial-gradient(circle, rgba(93, 59, 132, 0.02) 0%, transparent 75%);
+  pointer-events: none;
+  border-radius: 50%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+}
+
+/* Glassmorphic Panel styles - Institutional Clean White */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(18, 22, 26, 0.05);
+}
+
+.glass-panel-light {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(18, 22, 26, 0.03);
+}
+
+.glass-panel-hover {
+  transition: all 0.25s ease-in-out;
+}
+
+.glass-panel-hover:hover {
+  background: rgba(255, 255, 255, 1);
+  border-color: rgba(93, 59, 132, 0.15);
+  box-shadow: 0 12px 28px rgba(93, 59, 132, 0.02);
+  transform: translateY(-0.5px);
+}
+
+.text-silver-gradient {
+  background: linear-gradient(135deg, #12161a 0%, #626e7a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Custom premium ambient glows - Soft light purple */
+.bg-subtle-glow {
+  background-image: 
+    radial-gradient(circle at 50% -10%, rgba(93, 59, 132, 0.025) 0%, transparent 60%),
+    radial-gradient(circle at 90% 70%, rgba(93, 59, 132, 0.01) 0%, transparent 55%);
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f8f9fc;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(18, 22, 26, 0.08);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(93, 59, 132, 0.15);
+}
+
+@media print {
+  aside,
+  [class*="sidebar"],
+  .sidebar,
+  header,
+  .print\:hidden,
+  div:has(> h2:contains("Welcome back")) { 
+    display: none !important;
+  }
+
+  body, 
+  html, 
+  #root,
+  div[class*="flex"], 
+  div[class*="grid"],
+  main {
+    display: block !important;
+    clear: both !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+  }
+
+  .max-w-2xl,
+  div:has(> table) {
+    max-width: 100% !important;
+    width: 100% !important;
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  table {
+    width: 100% !important;
+    table-layout: auto !important;
+  }
+  
+  th, td {
+    padding: 8px 12px !important;
+  }
+}

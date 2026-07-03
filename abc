@@ -1,0 +1,227 @@
+// const Expense = require('../model/expense.model');
+// const mongoose = require("mongoose");
+// const {GoogleGenAI} = require('@google/genai');
+
+// // const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+
+// // 
+
+// const client = new GoogleGenAI({
+//   apiKey: process.env.GEMINI_API_KEY, // put your key in .env
+// });
+
+// const systemInstruction = "You are an expert AI Financial Advisor and Coach. You will receive a structured JSON summary representing the user's spending data for the past 30 days. " +
+//             "Analyze their behavior, categories, habits, and flags. Provide exactly 3 short, precise, and actionable bullet points of personalized advice. " +
+//             "Point 1 must target their highest spending category or volume. Point 2 must alert them about their highest single transaction. Point 3 must give a definitive saving tip or structural optimization metric based on their context. " +
+//             "Do not output markdown code blocks (like ```json or ```text). Do not include pleasantries or long introductions. Output plain text bullet points.";
+
+
+
+// const aiAdvisor = async (userId) =>{
+ 
+//    try{
+//         const targetDate = new Date();
+//         targetDate.setDate(targetDate.getDate()-30);
+    
+//         const getData = await Expense.aggregate([
+//             {
+//                 $match:{
+//                     user:new mongoose.Types.ObjectId(userId),
+//                     dateAndTime:{$gte:targetDate}
+//                 }
+//             },
+     
+//             {
+//                 $facet:{
+//                     totalSumOfCategory:[
+//                       {
+//                          $group:{
+//                           _id: "$category",
+//                           totalAmount:{ $sum : "$amount"},
+//                           transactionCount:{$sum:1}
+//                        }
+//                       }
+                       
+//                     ],
+//                      sourceMetrices:[
+//                     {
+//                          $group:{
+//                             _id:"$isAi",
+//                             totalSpent:{$sum:"$amount"},
+//                             count:{$sum:1}
+//                          }
+//                      }
+    
+//                      ],
+//                      highestTransaction:[
+//                                  { $sort: {amount:-1}},
+//                                  {$limit:1},
+//                                  { $project:{
+//                                     title: 1,
+//                                     amount: 1,
+//                                     category: 1,
+//                                     dateAndTime: 1
+//                             }}
+//                     ]
+                        
+                    
+//                 }
+//             }
+//         ]);
+    
+        
+//     const data = getData[0];
+//     const hasTransactions = data.totalSumOfCategory.length>0;
+
+
+//     if(!hasTransactions) return null;
+
+
+//     if(!data ||  !data.totalSumOfCategory || data.totalSumOfCategory.length === 0) return null;
+
+//     const overAllTotal = data.totalSumOfCategory.reduce((sum,item) => sum+item.totalAmount,0);
+   
+//     const compactContext = {
+//         monthlyGrandTotal:overAllTotal,
+//         categoryBreakDown : data.totalSumOfCategory,
+//         trackingMethodology:data.sourceMetrices,
+//         biggestExpense:data.highestTransaction[0] || null
+//     }
+
+   
+
+//     const model = await client.getGenerativeModel({
+//         model:"gemini-1.5-flash",
+//         generationConfig:{
+//             temperature:0.2
+//         },
+//         systemInstruction:systemInstruction
+        
+//     });
+
+//     const response = await model.generateContent({
+       
+//         contents:[{parts:[{text:`Here is my financial snapshot: ${JSON.stringify(compactContext)}`}]}],
+        
+//     });
+
+
+   
+//     console.log(response.response.text());
+
+    
+//     // let rawText = "";
+//     // if (response && typeof response.response.text() === 'function') {
+//     //     rawText = response.response.text();
+//     // }
+
+//     let rawText =response.response.text;
+    
+    
+   
+
+//     const advicePoints = rawText.split('\n')
+//     .map(point => point.replace(/^-\s*|\*\s*/,'').trim())
+//     .filter(point => point.length>0);
+
+//     if (advicePoints.length === 0) {
+//     advicePoints.push(
+//         "Analyze your spending patterns weekly to maintain budget discipline.",
+//         "Set aside a fixed percentage of income immediately after receiving it.",
+//         "Review your recurring subscriptions to eliminate unused automated expenses."
+//     );
+// }
+
+
+//     return{
+//          summary:compactContext,
+//          advice:advicePoints.slice(0,3)
+//     }
+//   }catch(error){
+//     console.log("Ai advisor error:",error.message);
+//   }
+
+// }
+
+// module.exports = {aiAdvisor}
+
+
+
+
+
+
+
+// import React from 'react'
+// import { NavLink } from 'react-router-dom'
+
+
+// const Home = () => {
+//   return (
+//     <>
+//     <div className='bg-radial-[at_25%_25%] from-white to-zinc-900 to-75% h-screen w-full overflow-hidden
+//     text-white '>
+
+//       <div className="absolute rounded-full bg-white left-[95.2102%] top-[30.1135%] w-1 h-1 opacity-.3 
+//      transform scale-[1.44542] animate-bounce"></div>
+//      <div className="absolute rounded-full bg-white left-[78.2102%] top-[41.1135%] w-1 h-1 opacity-.3 
+//      transform scale-[1.44542] animate-bounce"></div>
+//      <div className="absolute rounded-full bg-white left-[30.2102%] top-[57.1135%] w-1 h-1 opacity-.2
+//      transform scale-[1.44542] animate-bounce"></div>
+//      <div className="absolute rounded-full bg-white left-[60.2102%] top-[90.1135%] w-1 h-1 opacity-.3 
+//      transform scale-[1.44542] animate-bounce"></div>
+//      <div className="absolute rounded-full bg-white left-[50.2102%] top-[12.1135%] w-1 h-1 opacity-.3 
+//      transform scale-[1.44542] animate-bounce"></div>
+//      <div className="absolute rounded-full bg-white left-[78.2102%] top-[12.1135%] w-1 h-1 opacity-.3 
+//      transform scale-[1.44542] animate-bounce"></div>
+//      <div className="absolute rounded-full bg-white left-[67.2102%] top-[90.1135%] w-1 h-1 opacity-.3 
+//      transform scale-[1.44542] animate-bounce"></div>
+//      <div className="absolute rounded-full bg-white left-[5.2102%] top-[55.1135%] w-1 h-1 opacity-.3 
+//      transform scale-[1.44542] animate-bounce"></div>
+//      <div className="absolute rounded-full bg-white left-[12.2102%] top-[43.1135%] w-1 h-1 opacity-.3 
+//      transform scale-[1.44542] animate-bounce"></div>
+//      <div className="absolute rounded-full bg-white left-[17.2102%] top-[89.1135%] w-1 h-1 opacity-.3 
+//      transform scale-[1.44542] animate-bounce"></div>
+
+
+        
+
+//         <nav 
+//             className='h-15  border-b-2 flex items-center justify-between mx-10'>
+//             <div className='m-10'>
+//                 <h1 className='font-bold text-2xl font-script'>FinSaver</h1>
+//             </div>
+//             <div className='m-10 flex items-center justify-between w-1/4'>
+//                  <NavLink to="/About">About</NavLink>
+//                  <NavLink to="/contact">Contact Us</NavLink>
+//                  <button>Sign In</button>
+//             </div>
+             
+//          </nav>
+
+//          <div className='absolute top-50 left-20 translate '>
+//             <h1 className='font-bold text-6xl m-1 p-2 bg-clip-text text-transparent bg-linear-to-b from-[#1A1F2B] to-[#00C4CC]'>
+//               Your money tells a story — </h1>
+//             <h1 className='font-bold text-5xl mx-5 p-2 bg-clip-text text-transparent
+//             bg-linear-to-bl from-pink-400 to-blue-400'>
+//                FinSight helps you read it.</h1>
+//             <h1>Smart insights, clear decisions, confident future.</h1>
+//             <div>
+//               <button>Get Started</button>
+//               <button>SignIn</button>
+//             </div>
+//          </div>
+        
+
+    
+//       <div className="absolute rounded-full bg-white left-[53.2102%] top-[41.1135%] w-1 h-1 opacity-.3 
+//           transform scale-[1.44542] animate-bounce"></div>
+//        <div className="absolute rounded-full bg-white left-[3.2102%] top-[11.1135%] w-1 h-1 opacity-.3 
+//             transform scale-[1.44542] animate-bounce"></div>
+
+//      </div>
+
+//     </>
+//   )
+// }
+
+// export default Home
