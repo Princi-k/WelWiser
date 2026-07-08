@@ -18,6 +18,7 @@ import  ProfilePage  from './pages/Dashboard/Profile'
 import  ParserGuidePage  from './pages/Dashboard/AiGuide'
 import AiAdvisorPage from './pages/Dashboard/AiAdvisorPage'
 import { AnalyticsProvider } from './context/AnalyticsContext'
+import ProtectedRoute from './routes/ProtectedRoute'
 
 
 const App = () => {
@@ -33,10 +34,11 @@ const App = () => {
           <Route path="insights" element={<Insights />} />
         </Route>
         <Route path='/dashboard' element={
-          <AnalyticsProvider>
-             <Dashboard/>
-          </AnalyticsProvider>
-          
+          <ProtectedRoute>
+            <AnalyticsProvider>
+               <Dashboard/>
+            </AnalyticsProvider>
+          </ProtectedRoute>
           } >
               <Route index  element={<DashBoardPage />} />
               <Route path='analytics'  element={<DeepAnalytics />} />

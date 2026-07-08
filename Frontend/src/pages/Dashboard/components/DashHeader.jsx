@@ -21,20 +21,20 @@ const DashHeader = () => {
   const username = localStorage.getItem('username') || 'User';
 
   return (
-    <header className="sticky top-0 z-10 bg-[#0c0e17]/75 backdrop-blur-xl border-b border-slate-800/80 px-6 md:px-8 py-4 print:hidden">
+    <header className="sticky top-0 z-10 bg-white/65 backdrop-blur-xl border-b border-slate-200/80 px-6 md:px-8 py-4 print:hidden">
       <div className="max-w-5xl mx-auto flex items-center justify-between">
         
-        <h1 className="text-slate-100 font-extrabold font-display text-sm">
+        <h1 className="text-slate-800 font-extrabold font-display text-sm">
           Welcome back, {username}! 👋
         </h1>
 
         <div className="flex items-center gap-3">
-          <button className="p-2 hover:bg-slate-800/50 rounded-lg transition-colors text-slate-400 hover:text-slate-100">
+          <button className="p-2 hover:bg-slate-100 rounded-lg transition-colors text-slate-500 hover:text-slate-800">
             <Bell className="size-4" />
           </button>
           <button 
             onClick={logOutBtn}
-            className="flex items-center gap-1.5 text-xs font-bold text-slate-400 hover:text-rose-450 transition duration-200"
+            className="flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-rose-600 transition duration-200"
           >
             <LogOut className="size-3.5" />
             <span>Logout</span>

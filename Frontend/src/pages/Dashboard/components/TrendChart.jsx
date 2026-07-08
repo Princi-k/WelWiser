@@ -22,10 +22,10 @@ const TrendChart = () => {
     const idx = finalData.findIndex((d) => d.month === label && d.year === year);
     return (
       <div
-        className="bg-[#1a1c2e] border border-slate-800 rounded-xl px-3 py-2 shadow-lg text-left text-white"
+        className="bg-white border border-slate-200/80 rounded-xl px-3 py-2 shadow-md text-left text-slate-800"
         style={{ fontSize: 12 }}
       >
-        <p className="text-slate-400 font-mono text-[0.62rem] mb-0.5">{label} {year}</p>
+        <p className="text-slate-500 font-mono text-[0.62rem] mb-0.5">{label} {year}</p>
         <p className="font-extrabold" style={{ color: MONTH_COLORS[idx] }}>
           ₹{payload[0].value.toLocaleString()}
         </p>
@@ -35,27 +35,27 @@ const TrendChart = () => {
 
   if (loading) {
     return (
-      <div className="bg-[#131523] rounded-2xl border border-slate-800/80 p-5 flex justify-center items-center h-72 shadow-sm">
-        <p className="text-xs text-slate-400 font-semibold animate-pulse">Loading analytics data...</p>
+      <div className="bg-white/80 backdrop-blur-md rounded-2xl border border-slate-200/80 p-5 flex justify-center items-center h-72 shadow-[0_8px_30px_rgb(0,0,0,0.02)]">
+        <p className="text-xs text-slate-500 font-semibold animate-pulse">Loading analytics data...</p>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="bg-[#131523] rounded-2xl border border-slate-800/80 p-5 flex justify-center items-center h-72 shadow-sm">
-        <p className="text-xs font-bold text-rose-500">Error: {error}</p>
+      <div className="bg-white/80 backdrop-blur-md rounded-2xl border border-slate-200/80 p-5 flex justify-center items-center h-72 shadow-[0_8px_30px_rgb(0,0,0,0.02)]">
+        <p className="text-xs font-bold text-rose-650">Error: {error}</p>
       </div>
     );
   }
 
   return (
-    <div className="bg-[#131523] rounded-2xl border border-slate-800/80 p-5 shadow-[0_4px_20px_rgba(0,0,0,0.15)] w-full text-left">
+    <div className="bg-white/80 backdrop-blur-md rounded-2xl border border-slate-200/80 p-5 shadow-[0_8px_30px_rgb(0,0,0,0.02)] w-full text-left">
       
       <div className="flex items-center justify-between mb-5">
         <div>
-          <h3 className="text-sm font-extrabold text-white font-display">Monthly Spending Trend</h3>
-          <p className="text-[0.62rem] uppercase tracking-wider text-slate-400 font-mono font-bold mt-0.5">Last 6 months overview</p>
+          <h3 className="text-sm font-extrabold text-slate-800 font-display">Monthly Spending Trend</h3>
+          <p className="text-[0.62rem] uppercase tracking-wider text-slate-500 font-mono font-bold mt-0.5">Last 6 months overview</p>
         </div>
         <div className="flex gap-1.5">
           {MONTH_COLORS.map((c, i) => (
@@ -70,24 +70,24 @@ const TrendChart = () => {
 
       <ResponsiveContainer width="100%" height={260}>
         <BarChart data={finalData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#1e2235" vertical={false} />
+          <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" vertical={false} />
           <XAxis
             dataKey="month"
-            stroke="#94a3b8"
+            stroke="#64748b"
             fontSize={11}
             tickLine={false}
             axisLine={false}
             dy={8}
           />
           <YAxis
-            stroke="#94a3b8"
+            stroke="#64748b"
             fontSize={11}
             tickLine={false}
             axisLine={false}
             tickFormatter={(v) => `₹${(v / 1000).toFixed(0)}k`}
             width={35}
           />
-          <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(255,255,255,0.04)', radius: 8 }} />
+          <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(93, 59, 132, 0.04)', radius: 8 }} />
           <Bar dataKey="amount" radius={[4, 4, 2, 2]} barSize={20}>
             {finalData.map((_, i) => (
               <Cell key={i} fill={MONTH_COLORS[i % MONTH_COLORS.length]} fillOpacity={0.95} />

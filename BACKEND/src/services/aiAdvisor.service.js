@@ -10,22 +10,7 @@ const ai = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 //             "Point 1 must target their highest spending category or volume. Point 2 must alert them about their highest single transaction. Point 3 must give a definitive saving tip or structural optimization metric based on their context. " +
 //             "Do not output markdown code blocks (like ```json or ```text). Do not include pleasantries or long introductions. Output plain text bullet points.";
 
-const systemInstruction = `You are a professional AI Financial Advisor chatbot. 
-                    Analyze the user's spending data provided in the prompt context.
-                    You must only focus on the provided financial dataset covering the past 30 days. 
-                    Provide insights strictly inside 3 clear, actionable points:
-                    1. Highlight the highest spending category with specific values.
-                    2. Alert on unusual patterns or the highest transaction.
-                    3. Give a practical saving tip or identify volume trends.
-                    Do not provide long conversational filler text, greetings, markdown blocks, or extra intros.
-                    CRITICAL CURRENCY FORMATTING RULES:
-                    1. DO NOT use the dollar sign ($) under any circumstances.
-                    2. Display all financial amounts with the '₹' or 'INR'.
-                    3. Output must contain 3 clear, actionable bullet points matching the aggregated metrics exactly.
-                `;
-
-
-const aiAdvisor = async (userId) =>{
+const aiAdvisor = async (userId, userQuery = "") =>{
  
    try{    
 
@@ -100,18 +85,44 @@ const aiAdvisor = async (userId) =>{
 
    
 
+    const dynamicSystemInstruction = userQuery
+      ? `You are a professional AI Financial Advisor chatbot. 
+         Analyze the user's spending data for the past 30 days.
+         Answer the user's questions clearly, concisely, and professionally based on their spending data.
+         Keep the tone encouraging, helpful, and professional.
+         CRITICAL CURRENCY AND FORMATTING RULES:
+         1. DO NOT use the dollar sign ($) under any circumstances.
+         2. Display all financial amounts with the '₹' or 'INR'.
+         3. DO NOT use asterisks (*) or markdown bullet symbols in the response. Use clean paragraphs or numbered points without bold markdown.`
+      : `You are a professional AI Financial Advisor chatbot. 
+         Analyze the user's spending data provided in the prompt context.
+         You must only focus on the provided financial dataset covering the past 30 days. 
+         Provide insights strictly inside 3 clear, actionable points:
+         1. Highlight the highest spending category with specific values.
+         2. Alert on unusual patterns or the highest transaction.
+         3. Give a practical saving tip or identify volume trends.
+         Do not provide long conversational filler text, greetings, markdown blocks, or extra intros.
+         CRITICAL CURRENCY AND FORMATTING RULES:
+         1. DO NOT use the dollar sign ($) under any circumstances.
+         2. Display all financial amounts with the '₹' or 'INR'.
+         3. DO NOT use asterisks (*) or markdown bullet symbols in the response. Output must contain 3 clear, actionable plain text points matching the aggregated metrics exactly (do not prefix them with asterisks or dashes).`;
+
     const model = await ai.getGenerativeModel({
         model:"gemini-2.5-flash",
         generationConfig:{
-            temperature:0.2
+            temperature: userQuery ? 0.7 : 0.2
         },
-        systemInstruction:systemInstruction
-        
+        systemInstruction: dynamicSystemInstruction
     });
   
-    const response = await model.generateContentStream({
-        contents:[{parts:[{text:`Here is my financial snapshot: ${JSON.stringify(compactContext)}`}]}]
+    const promptText = userQuery
+      ? `Here is my financial snapshot for the last 30 days: ${JSON.stringify(compactContext)}
+         
+         My Question: "${userQuery}"`
+      : `Here is my financial snapshot: ${JSON.stringify(compactContext)}`;
 
+    const response = await model.generateContentStream({
+        contents:[{parts:[{text: promptText}]}]
     });
 
     

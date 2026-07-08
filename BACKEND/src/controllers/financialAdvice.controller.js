@@ -21,24 +21,26 @@ async function getFinancialAdvice(req,res) {
  
 try{
  const userId = req.user.id;
-    // Example helper: Exponential Backoff Utility
-const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+ const userQuery = req.query.query || "";
+ 
+ // Example helper: Exponential Backoff Utility
+ const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-async function callGeminiWithRetry(userId, retries = 3, backoff = 2000) {
-    try {
-        return await aiAdvisor(userId); // Call your Gemini execution
-    } catch (error) {
-        // Agar error 429 hai aur retries bache hain
-        if (error.status === 429 && retries > 0) {
-            console.warn(`[Quota Exceeded]: 429 hit. Retrying in ${backoff}ms... (${retries} retries left)`);
-            await delay(backoff);
-            return callGeminiWithRetry(userId, retries - 1, backoff * 2); // Double the wait time
-        }
-        throw error; // Baaki errors ko normal bubble up hone dein
-    }
-}
-      
-       const insight = await callGeminiWithRetry(userId);
+ async function callGeminiWithRetry(userId, userQuery, retries = 3, backoff = 2000) {
+     try {
+         return await aiAdvisor(userId, userQuery); // Call your Gemini execution
+     } catch (error) {
+         // Agar error 429 hai aur retries bache hain
+         if (error.status === 429 && retries > 0) {
+             console.warn(`[Quota Exceeded]: 429 hit. Retrying in ${backoff}ms... (${retries} retries left)`);
+             await delay(backoff);
+             return callGeminiWithRetry(userId, userQuery, retries - 1, backoff * 2); // Double the wait time
+         }
+         throw error; // Baaki errors ko normal bubble up hone dein
+     }
+ }
+       
+        const insight = await callGeminiWithRetry(userId, userQuery);
 
      
     if(!insight || insight.length === 0){

@@ -6,12 +6,12 @@ import { useTransactions } from "../../context/TransactionContext";
 const CATEGORIES = ["Food", "Travel", "Shopping", "Medical", "Entertainment", "Others"];
 
 const CATEGORY_STYLES = {
-  Food: { ring: "border-emerald-500/30", bg: "bg-emerald-500/15 text-emerald-400", dot: "bg-emerald-400" },
-  Travel: { ring: "border-violet-500/30", bg: "bg-violet-500/15 text-violet-400", dot: "bg-violet-400" },
-  Shopping: { ring: "border-sky-500/30", bg: "bg-sky-500/15 text-sky-400", dot: "bg-sky-400" },
-  Entertainment: { ring: "border-fuchsia-500/30", bg: "bg-fuchsia-500/15 text-fuchsia-400", dot: "bg-fuchsia-400" },
-  Medical: { ring: "border-teal-500/30", bg: "bg-teal-500/15 text-teal-400", dot: "bg-teal-400" },
-  Others: { ring: "border-amber-500/30", bg: "bg-amber-500/15 text-amber-400", dot: "bg-amber-400" },
+  Food: { ring: "border-emerald-250/60", bg: "bg-emerald-50 text-emerald-700", dot: "bg-emerald-500" },
+  Travel: { ring: "border-violet-250/60", bg: "bg-violet-50 text-violet-700", dot: "bg-violet-500" },
+  Shopping: { ring: "border-sky-250/60", bg: "bg-sky-50 text-sky-700", dot: "bg-sky-500" },
+  Entertainment: { ring: "border-fuchsia-250/60", bg: "bg-fuchsia-50 text-fuchsia-700", dot: "bg-fuchsia-500" },
+  Medical: { ring: "border-teal-250/60", bg: "bg-teal-50 text-teal-700", dot: "bg-teal-500" },
+  Others: { ring: "border-amber-250/60", bg: "bg-amber-50 text-amber-700", dot: "bg-amber-500" },
 };
 
 const QUICK_PICKS = [
@@ -89,9 +89,9 @@ const AddTransactionPage = () => {
   if (success) {
     return (
       <div className="flex flex-col items-center justify-center h-80 gap-4 text-center">
-        <CheckCircle2 className="size-12 text-emerald-400 animate-bounce" />
-        <h3 className="text-lg font-extrabold text-white font-display">Transaction Added!</h3>
-        <p className="text-slate-400 font-mono text-[0.62rem] font-bold uppercase tracking-wider animate-pulse">Redirecting to ledger...</p>
+        <CheckCircle2 className="size-12 text-emerald-500 animate-bounce" />
+        <h3 className="text-lg font-extrabold text-slate-800 font-display">Transaction Added!</h3>
+        <p className="text-slate-500 font-mono text-[0.62rem] font-bold uppercase tracking-wider animate-pulse">Redirecting to ledger...</p>
       </div>
     );
   }
@@ -101,80 +101,80 @@ const AddTransactionPage = () => {
       {/* Back */}
       <button
         onClick={() => navigate("/dashboard/transactions")}
-        className="flex items-center gap-1.5 text-xs font-bold text-slate-400 hover:text-white transition"
+        className="flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-slate-800 transition"
       >
         <ArrowLeft className="size-3.5" /> 
         <span>Back to Ledger</span>
       </button>
 
       <div>
-        <h2 className="text-xl font-extrabold text-white font-display">Add Transaction</h2>
-        <p className="text-[0.62rem] uppercase tracking-wider text-slate-400 font-mono font-bold mt-1">Log a new expense to your ledger</p>
+        <h2 className="text-xl font-extrabold text-slate-800 font-display">Add Transaction</h2>
+        <p className="text-[0.62rem] uppercase tracking-wider text-slate-500 font-mono font-bold mt-1">Log a new expense to your ledger</p>
       </div>
 
       {/* Quick picks */}
-      <div className="bg-[#131523] rounded-2xl border border-slate-800/80 p-4 space-y-2.5 shadow-[0_4px_20px_rgba(0,0,0,0.15)]">
-        <p className="text-[0.58rem] uppercase tracking-wider text-slate-400 font-mono font-bold">Quick picks</p>
+      <div className="bg-white/80 rounded-2xl border border-slate-200/80 p-4 space-y-2.5 shadow-[0_8px_30px_rgb(0,0,0,0.02)]">
+        <p className="text-[0.58rem] uppercase tracking-wider text-slate-500 font-mono font-bold">Quick picks</p>
         <div className="grid grid-cols-3 gap-2">
           {QUICK_PICKS.map((pick) => (
             <button
               key={pick.label}
               type="button"
               onClick={() => applyQuick(pick)}
-              className="text-xs font-semibold text-slate-200 bg-[#0c0e17] hover:bg-slate-800/40 hover:border-slate-700 border border-slate-800 rounded-xl p-2 text-left transition-colors"
+              className="text-xs font-semibold text-slate-700 bg-white hover:bg-slate-50 hover:border-slate-300 border border-slate-200 rounded-xl p-2 text-left transition-colors shadow-sm"
             >
               <span className="block truncate">{pick.label}</span>
-              <span className="text-[0.58rem] text-slate-450 font-mono mt-0.5 block">₹{pick.amount}</span>
+              <span className="text-[0.58rem] text-slate-500 font-mono mt-0.5 block">₹{pick.amount}</span>
             </button>
           ))}
         </div>
       </div>
 
       {/* Form */}
-      <form onSubmit={handleSubmit} className="bg-[#131523] rounded-2xl border border-slate-800/80 p-5 space-y-4 shadow-[0_4px_20px_rgba(0,0,0,0.15)]">
+      <form onSubmit={handleSubmit} className="bg-white/80 rounded-2xl border border-slate-200/80 p-5 space-y-4 shadow-[0_8px_30px_rgb(0,0,0,0.02)]">
         
         {/* title */}
         <div className="space-y-1">
-          <label className="text-[0.68rem] font-bold text-slate-400 font-mono uppercase tracking-wider">Title</label>
+          <label className="text-[0.68rem] font-bold text-slate-500 font-mono uppercase tracking-wider">Title</label>
           <input
             type="text"
             placeholder="e.g. Dinner with friends"
             value={form.title}
             onChange={(e) => set("title", e.target.value)}
-            className="w-full px-3 py-2 text-xs border border-slate-800 bg-[#0c0e17] text-white rounded-xl focus:outline-none focus:border-indigo-500/50 transition placeholder-slate-500"
+            className="w-full px-3 py-2 text-xs border border-slate-200 bg-white text-slate-800 rounded-xl focus:outline-none focus:border-indigo-500/50 transition placeholder-slate-400 shadow-sm"
           />
         </div>
 
         {/* Amount */}
         <div className="space-y-1">
-          <label className="text-[0.68rem] font-bold text-slate-400 font-mono uppercase tracking-wider">Amount (₹)</label>
+          <label className="text-[0.68rem] font-bold text-slate-500 font-mono uppercase tracking-wider">Amount (₹)</label>
           <div className="relative">
-            <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs font-bold">₹</span>
+            <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-550 text-xs font-bold">₹</span>
             <input
               type="number"
               min="1"
               placeholder="0.00"
               value={form.amount}
               onChange={(e) => set("amount", e.target.value)}
-              className="w-full pl-7.5 pr-4 py-2 text-xs border border-slate-800 bg-[#0c0e17] text-white rounded-xl focus:outline-none focus:border-indigo-500/50 transition placeholder-slate-500"
+              className="w-full pl-7.5 pr-4 py-2 text-xs border border-slate-200 bg-white text-slate-800 rounded-xl focus:outline-none focus:border-indigo-500/50 transition placeholder-slate-400 shadow-sm"
             />
           </div>
         </div>
 
         {/* Date */}
         <div className="space-y-1">
-          <label className="text-[0.68rem] font-bold text-slate-400 font-mono uppercase tracking-wider">Date</label>
+          <label className="text-[0.68rem] font-bold text-slate-500 font-mono uppercase tracking-wider">Date</label>
           <input
             type="date"
             value={form.date}
             onChange={(e) => set("date", e.target.value)}
-            className="w-full px-3 py-2 text-xs border border-slate-800 bg-[#0c0e17] text-white rounded-xl focus:outline-none focus:border-indigo-500/50 transition"
+            className="w-full px-3 py-2 text-xs border border-slate-200 bg-white text-slate-800 rounded-xl focus:outline-none focus:border-indigo-500/50 transition shadow-sm"
           />
         </div>
 
         {/* Category */}
         <div className="space-y-1.5">
-          <label className="text-[0.68rem] font-bold text-slate-400 font-mono uppercase tracking-wider">Category</label>
+          <label className="text-[0.68rem] font-bold text-slate-500 font-mono uppercase tracking-wider">Category</label>
           <div className="grid grid-cols-3 gap-2">
             {CATEGORIES.map((cat) => {
               const s = CATEGORY_STYLES[cat];
@@ -184,10 +184,10 @@ const AddTransactionPage = () => {
                   key={cat}
                   type="button"
                   onClick={() => set("category", cat)}
-                  className={`flex flex-col items-center gap-1 py-1.5 rounded-xl border text-[0.68rem] font-bold transition-all ${
+                  className={`flex flex-col items-center gap-1 py-1.5 rounded-xl border text-[0.68rem] font-bold transition-all shadow-sm ${
                     active
-                      ? `${s.bg} border ${s.ring} shadow-sm`
-                      : "border-slate-800 text-slate-400 bg-[#0c0e17] hover:bg-slate-800/50"
+                      ? `${s.bg} border ${s.ring}`
+                      : "border-slate-200 text-slate-500 bg-white hover:bg-slate-50"
                   }`}
                 >
                   <div className={`size-1.5 rounded-full ${s.dot}`} />
@@ -199,14 +199,14 @@ const AddTransactionPage = () => {
         </div>
 
         {error && (
-          <p className="text-xs font-bold text-rose-400 bg-rose-500/10 border border-rose-500/20 rounded-xl px-3 py-2">
+          <p className="text-xs font-bold text-rose-600 bg-rose-50 border border-rose-100 rounded-xl px-3 py-2">
             {error}
           </p>
         )}
 
         <button
           type="submit"
-          className="w-full flex items-center justify-center gap-1.5 py-2.5 bg-indigo-650 hover:bg-indigo-600 text-white text-xs font-bold rounded-xl border border-indigo-500/40 transition shadow-sm"
+          className="w-full flex items-center justify-center gap-1.5 py-2.5 bg-indigo-650 hover:bg-indigo-600 text-white text-xs font-bold rounded-xl border border-indigo-500/40 transition shadow-md shadow-indigo-500/5"
         >
           <PlusCircle className="size-3.5" />
           <span>Add to Ledger</span>

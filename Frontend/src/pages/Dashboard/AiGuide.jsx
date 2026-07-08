@@ -43,7 +43,7 @@ const ParserGuidePage = () => {
     <div className="space-y-8 max-w-3xl text-left">
       
       {/* Hero */}
-      <div className="bg-gradient-to-br from-[#5D3B84] to-[#3f255c] rounded-3xl p-6 text-white relative overflow-hidden shadow-[0_4px_25px_rgba(93,59,132,0.15)]">
+      <div className="bg-gradient-to-br from-indigo-650 to-indigo-850 rounded-3xl p-6 text-white relative overflow-hidden shadow-md shadow-indigo-650/10">
         <div className="absolute top-0 right-0 w-36 h-36 bg-white/5 rounded-full -translate-y-8 translate-x-8 blur-lg pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full translate-y-6 -translate-x-6 blur-lg pointer-events-none" />
         <div className="relative">
@@ -62,17 +62,17 @@ const ParserGuidePage = () => {
 
       {/* How it works */}
       <div>
-        <h3 className="text-sm font-extrabold text-white mb-4 flex items-center gap-2 font-display">
-          <Zap className="size-4 text-indigo-400" /> 
+        <h3 className="text-sm font-extrabold text-slate-800 mb-4 flex items-center gap-2 font-display">
+          <Zap className="size-4 text-indigo-600" /> 
           <span>How it works</span>
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {STEPS.map((s) => (
-            <div key={s.step} className="bg-[#131523] border border-slate-800/80 rounded-2xl p-4 flex gap-3 shadow-sm">
-              <span className="text-xl font-black text-slate-800 leading-none select-none font-mono">{s.step}</span>
+            <div key={s.step} className="bg-white/80 backdrop-blur-md border border-slate-200/80 rounded-2xl p-4 flex gap-3 shadow-[0_8px_30px_rgb(0,0,0,0.02)]">
+              <span className="text-xl font-black text-slate-300 leading-none select-none font-mono">{s.step}</span>
               <div>
-                <p className="text-xs font-extrabold text-slate-200 mb-1 font-display">{s.title}</p>
-                <p className="text-[0.68rem] text-slate-400 leading-relaxed font-semibold">{s.desc}</p>
+                <p className="text-xs font-extrabold text-slate-800 mb-1 font-display">{s.title}</p>
+                <p className="text-[0.68rem] text-slate-500 leading-relaxed font-semibold">{s.desc}</p>
               </div>
             </div>
           ))}
@@ -81,36 +81,36 @@ const ParserGuidePage = () => {
 
       {/* Examples */}
       <div>
-        <h3 className="text-sm font-extrabold text-white mb-4 flex items-center gap-2 font-display">
-          <MessageSquareText className="size-4 text-indigo-400" /> 
+        <h3 className="text-sm font-extrabold text-slate-800 mb-4 flex items-center gap-2 font-display">
+          <MessageSquareText className="size-4 text-indigo-600" /> 
           <span>Example inputs</span>
         </h3>
         <div className="space-y-4">
           {EXAMPLES.map((ex, i) => {
             return (
-              <div key={i} className="bg-[#131523] border border-slate-800/80 rounded-2xl p-4 shadow-sm">
+              <div key={i} className="bg-white/80 border border-slate-200/80 rounded-2xl p-4 shadow-[0_8px_30px_rgb(0,0,0,0.02)]">
                 {/* Input bubble */}
                 <div className="flex items-start gap-2.5 mb-3">
-                  <div className="size-6 bg-[#0c0e17] border border-slate-800 rounded-full flex items-center justify-center shrink-0 mt-0.5 shadow-sm">
-                    <span className="text-[0.58rem] font-bold text-slate-400">You</span>
+                  <div className="size-6 bg-slate-50 border border-slate-200 rounded-full flex items-center justify-center shrink-0 mt-0.5 shadow-sm">
+                    <span className="text-[0.58rem] font-bold text-slate-450">You</span>
                   </div>
-                  <p className="text-xs text-slate-200 bg-[#0c0e17] rounded-xl px-3 py-2 border border-slate-800 italic font-medium">
+                  <p className="text-xs text-slate-700 bg-slate-50 rounded-xl px-3 py-2 border border-slate-200 italic font-medium">
                     "{ex.input}"
                   </p>
                 </div>
 
                 {/* Parsed arrow */}
                 <div className="flex items-center gap-1.5 mb-2 ml-8">
-                  <ChevronRight className="size-3.5 text-slate-500" />
-                  <span className="text-[0.58rem] text-slate-400 font-bold uppercase tracking-wider font-mono">Parsed as</span>
+                  <ChevronRight className="size-3.5 text-slate-400" />
+                  <span className="text-[0.58rem] text-slate-500 font-bold uppercase tracking-wider font-mono">Parsed as</span>
                 </div>
 
                 {/* Parsed fields */}
                 <div className="ml-8 grid grid-cols-2 sm:grid-cols-4 gap-2.5">
                   {Object.entries(ex.parsed).map(([key, val]) => (
-                    <div key={key} className="bg-[#0c0e17] border border-slate-800/80 rounded-xl px-3 py-1.5 text-left">
+                    <div key={key} className="bg-slate-50 border border-slate-150 rounded-xl px-3 py-1.5 text-left">
                       <p className="text-[0.52rem] text-slate-500 capitalize font-mono font-bold mb-0.5">{key}</p>
-                      <p className="text-xs font-bold text-white">{val}</p>
+                      <p className="text-xs font-bold text-slate-850">{val}</p>
                     </div>
                   ))}
                 </div>
@@ -122,24 +122,24 @@ const ParserGuidePage = () => {
 
       {/* Tips */}
       <div>
-        <h3 className="text-sm font-extrabold text-white mb-4 flex items-center gap-2 font-display">
-          <Lightbulb className="size-4 text-amber-400" /> 
+        <h3 className="text-sm font-extrabold text-slate-800 mb-4 flex items-center gap-2 font-display">
+          <Lightbulb className="size-4 text-amber-500" /> 
           <span>Pro tips</span>
         </h3>
-        <div className="bg-[#131523] border border-slate-800/80 rounded-2xl divide-y divide-slate-800 shadow-sm">
+        <div className="bg-white/80 border border-slate-200/80 rounded-2xl divide-y divide-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.02)]">
           {TIPS.map((tip, i) => (
             <div key={i} className="flex items-start gap-3.5 px-4.5 py-3.5">
               <span className="text-lg leading-none mt-0.5">{tip.icon}</span>
-              <p className="text-xs text-slate-300 leading-relaxed font-semibold">{tip.tip}</p>
+              <p className="text-xs text-slate-600 leading-relaxed font-semibold">{tip.tip}</p>
             </div>
           ))}
         </div>
       </div>
 
       {/* Note */}
-      <div className="bg-amber-950/20 border border-amber-500/20 rounded-2xl px-4 py-3 flex gap-2.5 shadow-sm">
-        <AlertCircle className="size-4 text-amber-400 shrink-0 mt-0.5" />
-        <p className="text-xs text-amber-400 leading-relaxed font-semibold">
+      <div className="bg-amber-50 border border-amber-100 rounded-2xl px-4 py-3 flex gap-2.5 shadow-sm">
+        <AlertCircle className="size-4 text-amber-600 shrink-0 mt-0.5" />
+        <p className="text-xs text-amber-700 leading-relaxed font-semibold">
           The AI parser uses an LLM to interpret your text. Results may occasionally need minor corrections — always review the parsed fields before saving.
         </p>
       </div>

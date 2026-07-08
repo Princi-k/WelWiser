@@ -24,15 +24,15 @@ const AreaTooltip = ({ active, payload, label }) => {
   const year = payload[0]?.payload?.year || 2026; 
 
   return (
-    <div className="bg-[#1a1c2e] border border-slate-800 rounded-xl px-3 py-2 shadow-lg text-left text-xs space-y-1 text-white">
-      <p className="text-slate-400 font-mono text-[0.62rem] mb-0.5">{label} {year}</p>
+    <div className="bg-white border border-slate-200/80 rounded-xl px-3 py-2 shadow-md text-left text-xs space-y-1 text-slate-800">
+      <p className="text-slate-500 font-mono text-[0.62rem] mb-0.5">{label} {year}</p>
       {budgetData && (
-        <p className="text-amber-400 font-bold">
+        <p className="text-amber-600 font-bold">
           Budget: ₹{budgetData.value}
         </p>
       )}
       {actualData && (
-        <p className="text-indigo-400 font-bold">
+        <p className="text-indigo-650 font-bold">
           Actual: ₹{actualData.value}
         </p>
       )}
@@ -44,9 +44,9 @@ const PieTooltip = ({ active, payload }) => {
   if (!active || !payload?.length) return null;
   const d = payload[0].payload;
   return (
-    <div className="bg-[#1a1c2e] border border-slate-800 rounded-xl px-3 py-2 shadow-lg text-left text-xs text-white">
+    <div className="bg-white border border-slate-200/80 rounded-xl px-3 py-2 shadow-md text-left text-xs text-slate-800">
       <p className="font-extrabold" style={{ color: d.color }}>{d.name}</p>
-      <p className="text-slate-400 font-mono text-[0.62rem] mt-0.5">
+      <p className="text-slate-500 font-mono text-[0.62rem] mt-0.5">
         {d.value}% · ₹{d.totalamount}
       </p>
     </div>
@@ -55,11 +55,11 @@ const PieTooltip = ({ active, payload }) => {
 
 function StatCard({ label, value, sub, trend }) {
   const Icon = trend === "up" ? TrendingUp : trend === "down" ? TrendingDown : Minus;
-  const color = trend === "up" ? "text-emerald-450" : trend === "down" ? "text-rose-450" : "text-slate-450";
+  const color = trend === "up" ? "text-emerald-600" : trend === "down" ? "text-rose-600" : "text-slate-500";
   return (
-    <div className="bg-[#131523] rounded-2xl border border-slate-800/80 p-4.5 flex flex-col gap-1.5 shadow-[0_4px_20px_rgba(0,0,0,0.15)] text-left">
-      <p className="text-[0.62rem] uppercase tracking-wider text-slate-400 font-mono font-bold">{label}</p>
-      <p className="text-xl font-extrabold text-white font-display">{value}</p>
+    <div className="bg-white/80 backdrop-blur-md rounded-2xl border border-slate-200/80 p-4.5 flex flex-col gap-1.5 shadow-[0_8px_30px_rgb(0,0,0,0.02)] text-left">
+      <p className="text-[0.62rem] uppercase tracking-wider text-slate-500 font-mono font-bold">{label}</p>
+      <p className="text-xl font-extrabold text-slate-800 font-display">{value}</p>
       <p className={`text-[0.68rem] font-semibold flex items-center gap-1 mt-0.5 ${color}`}>
         <Icon className="size-3.5" />
         <span>{sub}</span>
@@ -85,8 +85,8 @@ const DeepAnalytics = () => {
     const { month, year } = payload[0].payload;
     const idx = graphData.findIndex((d) => d.month === label && d.year === year);
     return (
-      <div className="bg-[#1a1c2e] border border-slate-800 rounded-xl px-3 py-2 shadow-lg text-left text-xs text-white">
-        <p className="text-slate-400 font-mono text-[0.62rem] mb-0.5">{label} {year}</p>
+      <div className="bg-white border border-slate-200/80 rounded-xl px-3 py-2 shadow-md text-left text-xs text-slate-800">
+        <p className="text-slate-500 font-mono text-[0.62rem] mb-0.5">{label} {year}</p>
         <p className="font-extrabold" style={{ color: MONTH_COLORS[idx % MONTH_COLORS.length] }}>
           ₹{payload[0].value.toLocaleString()}
         </p>
@@ -96,7 +96,7 @@ const DeepAnalytics = () => {
 
   if (loading) {
     return (
-      <div className="bg-[#131523] rounded-2xl border border-slate-800/80 p-6 flex justify-center items-center h-80 shadow-sm text-slate-400 font-semibold animate-pulse">
+      <div className="bg-white/80 backdrop-blur-md rounded-2xl border border-slate-200/80 p-6 flex justify-center items-center h-80 shadow-[0_8px_30px_rgb(0,0,0,0.02)] text-slate-500 font-semibold animate-pulse">
         Loading deep analytics data...
       </div>
     );
@@ -104,7 +104,7 @@ const DeepAnalytics = () => {
 
   if (error) {
     return (
-      <div className="bg-[#131523] rounded-2xl border border-slate-800/80 p-6 flex justify-center items-center h-80 shadow-sm text-rose-500 font-bold">
+      <div className="bg-white/80 backdrop-blur-md rounded-2xl border border-slate-200/80 p-6 flex justify-center items-center h-80 shadow-[0_8px_30px_rgb(0,0,0,0.02)] text-rose-650 font-bold">
         Error loading deep analytics: {error}
       </div>
     );
@@ -115,8 +115,8 @@ const DeepAnalytics = () => {
       
       {/* Page title */}
       <div>
-        <h2 className="text-xl font-extrabold text-white font-display">Deep Analytics</h2>
-        <p className="text-[0.62rem] uppercase tracking-wider text-slate-400 font-mono font-bold mt-1">
+        <h2 className="text-xl font-extrabold text-slate-800 font-display">Deep Analytics</h2>
+        <p className="text-[0.62rem] uppercase tracking-wider text-slate-500 font-mono font-bold mt-1">
           6-month financial overview · Jan – Jun 2026
         </p>
       </div>
@@ -130,19 +130,19 @@ const DeepAnalytics = () => {
       </div>
 
       {/* Budget vs Actual area chart — full width on top */}
-      <div className="bg-[#131523] rounded-2xl border border-slate-800/80 p-5 shadow-[0_4px_20px_rgba(0,0,0,0.15)]">
+      <div className="bg-white/80 backdrop-blur-md rounded-2xl border border-slate-200/80 p-5 shadow-[0_8px_30px_rgb(0,0,0,0.02)]">
         <div className="flex items-center justify-between mb-1">
-          <h3 className="text-sm font-extrabold text-white font-display">Budget vs Actual Spend</h3>
-          <div className="flex items-center gap-3 text-[0.68rem] text-slate-400 font-mono font-bold">
+          <h3 className="text-sm font-extrabold text-slate-800 font-display">Budget vs Actual Spend</h3>
+          <div className="flex items-center gap-3 text-[0.68rem] text-slate-500 font-mono font-bold">
             <span className="flex items-center gap-1">
               <span className="w-2.5 h-0.5 bg-amber-450 inline-block rounded" />Budget
             </span>
             <span className="flex items-center gap-1">
-              <span className="w-2.5 h-0.5 bg-indigo-500 inline-block rounded" />Actual
+              <span className="w-2.5 h-0.5 bg-indigo-550 inline-block rounded" />Actual
             </span>
           </div>
         </div>
-        <p className="text-[0.62rem] uppercase tracking-wider text-slate-400 font-mono font-bold mb-4">Monthly budget against real spend</p>
+        <p className="text-[0.62rem] uppercase tracking-wider text-slate-500 font-mono font-bold mb-4">Monthly budget against real spend</p>
         <ResponsiveContainer width="100%" height={320}>
           <AreaChart data={graphData} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
             <defs>
@@ -155,9 +155,9 @@ const DeepAnalytics = () => {
                 <stop offset="95%" stopColor="#5D3B84" stopOpacity={0} />
               </linearGradient>
             </defs>
-            <CartesianGrid strokeDasharray="3 3" stroke="#1e2235" vertical={false} />
-            <XAxis dataKey="month" stroke="#94a3b8" fontSize={11} tickLine={false} axisLine={false} dy={6} />
-            <YAxis stroke="#94a3b8" fontSize={11} tickLine={false} axisLine={false}
+            <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" vertical={false} />
+            <XAxis dataKey="month" stroke="#64748b" fontSize={11} tickLine={false} axisLine={false} dy={6} />
+            <YAxis stroke="#64748b" fontSize={11} tickLine={false} axisLine={false}
               tickFormatter={(v) => `₹${(v / 1000).toFixed(0)}k`} width={35} />
             <Tooltip content={<AreaTooltip />} />
             <Area type="monotone" dataKey="budget" stroke="#c5a059" strokeWidth={1.8}
@@ -172,23 +172,23 @@ const DeepAnalytics = () => {
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-5">
         
         {/* Spending bars — wider */}
-        <div className="lg:col-span-3 bg-[#131523] rounded-2xl border border-slate-800/80 p-5 shadow-[0_4px_20px_rgba(0,0,0,0.15)]">
+        <div className="lg:col-span-3 bg-white/80 backdrop-blur-md rounded-2xl border border-slate-200/80 p-5 shadow-[0_8px_30px_rgb(0,0,0,0.02)]">
           <div className="flex items-center justify-between mb-1">
-            <h3 className="text-sm font-extrabold text-white font-display">Monthly Spending</h3>
+            <h3 className="text-sm font-extrabold text-slate-800 font-display">Monthly Spending</h3>
             <div className="flex gap-1">
               {MONTH_COLORS.map((c, i) => (
                 <div key={i} className="size-1.5 rounded-full" style={{ backgroundColor: c }} />
               ))}
             </div>
           </div>
-          <p className="text-[0.62rem] uppercase tracking-wider text-slate-400 font-mono font-bold mb-4">Each bar represents total spend for that month</p>
+          <p className="text-[0.62rem] uppercase tracking-wider text-slate-500 font-mono font-bold mb-4">Each bar represents total spend for that month</p>
           <ResponsiveContainer width="100%" height={290}>
             <BarChart data={graphData} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#1e2235" vertical={false} />
-              <XAxis dataKey="month" stroke="#94a3b8" fontSize={11} tickLine={false} axisLine={false} dy={6} />
-              <YAxis stroke="#94a3b8" fontSize={11} tickLine={false} axisLine={false}
+              <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" vertical={false} />
+              <XAxis dataKey="month" stroke="#64748b" fontSize={11} tickLine={false} axisLine={false} dy={6} />
+              <YAxis stroke="#64748b" fontSize={11} tickLine={false} axisLine={false}
                 tickFormatter={(v) => `₹${(v / 1000).toFixed(0)}k`} width={35} />
-              <Tooltip content={<BarTooltip />} cursor={{ fill: "rgba(255,255,255,0.04)", radius: 6 }} />
+              <Tooltip content={<BarTooltip />} cursor={{ fill: "rgba(93, 59, 132, 0.04)", radius: 6 }} />
               <Bar dataKey="amount" radius={[4, 4, 2, 2]} barSize={20}>
                 {graphData.map((_, i) => (
                   <Cell key={i} fill={MONTH_COLORS[i % MONTH_COLORS.length]} fillOpacity={0.95} />
@@ -199,10 +199,10 @@ const DeepAnalytics = () => {
         </div>
 
         {/* Category donut — narrower */}
-        <div className="lg:col-span-2 bg-[#131523] rounded-2xl border border-slate-800/80 p-5 shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col justify-between">
+        <div className="lg:col-span-2 bg-white/80 backdrop-blur-md rounded-2xl border border-slate-200/80 p-5 shadow-[0_8px_30px_rgb(0,0,0,0.02)] flex flex-col justify-between">
           <div>
-            <h3 className="text-sm font-extrabold text-white font-display mb-1">Category Split</h3>
-            <p className="text-[0.62rem] uppercase tracking-wider text-slate-400 font-mono font-bold mb-4">Share of total spend by category</p>
+            <h3 className="text-sm font-extrabold text-slate-800 font-display mb-1">Category Split</h3>
+            <p className="text-[0.62rem] uppercase tracking-wider text-slate-500 font-mono font-bold mb-4">Share of total spend by category</p>
             <ResponsiveContainer width="100%" height={180}>
               <PieChart>
                 <Pie data={chartData} cx="50%" cy="50%"
@@ -217,16 +217,16 @@ const DeepAnalytics = () => {
             </ResponsiveContainer>
           </div>
           {/* Custom legend */}
-          <div className="mt-4 space-y-1.5 bg-[#0c0e17]/50 border border-slate-800/80 rounded-xl p-3 shadow-sm text-white">
+          <div className="mt-4 space-y-1.5 bg-white/50 border border-slate-200/80 rounded-xl p-3 shadow-sm text-slate-800">
             {chartData.map((d) => (
               <div key={d.name} className="flex items-center justify-between">
                 <div className="flex items-center gap-1.5">
                   <div className="w-2 h-2 rounded-full" style={{ backgroundColor: d.color }} />
-                  <span className="text-[0.68rem] font-semibold text-slate-300">{d.name}</span>
+                  <span className="text-[0.68rem] font-semibold text-slate-600">{d.name}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-[0.58rem] text-slate-400 font-mono">₹{d.totalamount}</span>
-                  <span className="text-[0.68rem] font-bold text-white font-mono">{d.value}%</span>
+                  <span className="text-[0.58rem] text-slate-500 font-mono">₹{d.totalamount}</span>
+                  <span className="text-[0.68rem] font-bold text-slate-800 font-mono">{d.value}%</span>
                 </div>
               </div>
             ))}

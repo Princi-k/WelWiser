@@ -48,29 +48,29 @@ const MetricsCard = () => {
       label: 'Total Spend (30d)',
       value: totalSpend,
       subtext: '+4.2% from last month',
-      subtextColor: 'text-emerald-450',
-      icon: <TrendingUp className="w-3.5 h-3.5 text-emerald-450" />,
+      subtextColor: 'text-emerald-600',
+      icon: <TrendingUp className="w-3.5 h-3.5 text-emerald-600" />,
     },
     {
       label: 'Highest Category',
       value: highestCategory,
       subtext: highestCategoryAmount,
-      subtextColor: 'text-slate-400',
-      icon: <Award className="w-3.5 h-3.5 text-indigo-400" />,
+      subtextColor: 'text-slate-500',
+      icon: <Award className="w-3.5 h-3.5 text-indigo-650" />,
     },
     {
       label: 'Total Logs Parsed',
       value: totalLogs,
       subtext: 'All database syncs operational',
-      subtextColor: 'text-slate-400',
-      icon: <ReceiptText className="w-3.5 h-3.5 text-indigo-400" />,
+      subtextColor: 'text-slate-500',
+      icon: <ReceiptText className="w-3.5 h-3.5 text-indigo-650" />,
     },
     {
       label: 'Budget Remaining',
       value: remainingBudget,
       subtext: null,
       progress: progress,
-      icon: <Wallet className="w-3.5 h-3.5 text-indigo-400" />,
+      icon: <Wallet className="w-3.5 h-3.5 text-indigo-650" />,
     },
   ];
 
@@ -80,11 +80,11 @@ const MetricsCard = () => {
         {[1, 2, 3, 4].map((i) => (
           <div 
             key={i}
-            className="bg-[#131523] rounded-2xl border border-slate-800/80 p-5 flex flex-col gap-3 shadow-[0_4px_20px_rgba(0,0,0,0.15)] text-left animate-pulse"
+            className="bg-white/70 backdrop-blur-md rounded-2xl border border-slate-200/80 p-5 flex flex-col gap-3 shadow-[0_8px_30px_rgb(0,0,0,0.02)] text-left animate-pulse"
           >
-            <div className="h-2.5 bg-slate-800/40 rounded w-1/3" />
-            <div className="h-6 bg-slate-800/40 rounded w-2/3" />
-            <div className="h-3 bg-slate-800/40 rounded w-1/2" />
+            <div className="h-2.5 bg-slate-200/60 rounded w-1/3" />
+            <div className="h-6 bg-slate-200/60 rounded w-2/3" />
+            <div className="h-3 bg-slate-200/60 rounded w-1/2" />
           </div>
         ))}
       </div>
@@ -96,15 +96,15 @@ const MetricsCard = () => {
       {metrics.map((item, index) => (
         <div 
           key={index}
-          className="bg-[#131523] rounded-2xl border border-slate-800/80 p-5 flex flex-col gap-2 shadow-[0_4px_20px_rgba(0,0,0,0.15)] text-left"
+          className="bg-white/80 backdrop-blur-md rounded-2xl border border-slate-200/80 p-5 flex flex-col gap-2 shadow-[0_8px_30px_rgb(0,0,0,0.02)] text-left"
         >
           <div className="flex items-center justify-between">
-            <p className="text-[0.62rem] uppercase tracking-wider text-slate-400 font-mono font-bold">
+            <p className="text-[0.62rem] uppercase tracking-wider text-slate-555 font-mono font-bold">
               {item.label}
             </p>
             {item.icon}
           </div>
-          <p className="text-xl font-extrabold text-white font-display capitalize">
+          <p className="text-xl font-extrabold text-slate-800 font-display capitalize">
             {item.value}
           </p>
 
@@ -116,10 +116,10 @@ const MetricsCard = () => {
 
           {item.progress !== undefined && (
             <div className="space-y-1.5 mt-1">
-              <div className="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
-                <div className="bg-gradient-to-r from-indigo-500 to-indigo-650 h-full rounded-full" style={{ width: `${item.progress}%` }} />
+              <div className="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
+                <div className="bg-gradient-to-r from-indigo-500 to-indigo-600 h-full rounded-full" style={{ width: `${item.progress}%` }} />
               </div>
-              <p className="text-[0.62rem] text-slate-400 font-semibold font-mono">
+              <p className="text-[0.62rem] text-slate-500 font-semibold font-mono">
                 {item.progress}% Remaining capacity
               </p>
             </div>
