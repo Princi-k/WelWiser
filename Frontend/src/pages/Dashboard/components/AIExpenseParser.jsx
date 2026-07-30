@@ -22,6 +22,12 @@ const AIExpenseParser = () => {
         credentials: "include"
       });
 
+      if (response.status === 401) {
+        localStorage.clear();
+        window.location.href = '/login';
+        return;
+      }
+
       if (!response.ok) {
         throw new Error("Failed to parse the expense. Please try again.");
       }

@@ -55,6 +55,12 @@ const ProfilePage = () => {
         credentials: 'include'
       });
 
+      if (response.status === 401) {
+        localStorage.clear();
+        window.location.href = '/login';
+        return;
+      }
+
       const data = await response.json();
 
       if (!response.ok) {
@@ -95,6 +101,13 @@ const ProfilePage = () => {
         },
         credentials: "include"
       });
+
+      if (response.status === 401) {
+        localStorage.clear();
+        window.location.href = '/login';
+        return;
+      }
+
       if (!response.ok) throw new Error("Error fetching list data");
       
       const result = await response.json();
@@ -193,87 +206,7 @@ const ProfilePage = () => {
       )}
 
       {/* Profile form */}
-      <form onSubmit={handleSave} className="bg-white/80 border border-slate-200/80 rounded-2xl p-5 space-y-4 shadow-[0_8px_30px_rgb(0,0,0,0.02)] print:hidden">
-        <p className="text-xs font-bold uppercase tracking-wider text-slate-800 flex items-center gap-1.5 border-b border-slate-150 pb-2.5">
-          <User className="size-4 text-indigo-650" /> Personal Information
-        </p>
-
-        <div className="space-y-1">
-          <label className="text-[0.62rem] font-bold text-slate-500 uppercase tracking-wider font-mono">Username</label>
-          <input
-            type="text"
-            value={form.username}
-            onChange={(e) => set("username", e.target.value)}
-            className="w-full px-3 py-2 text-xs border border-slate-200 bg-white text-slate-800 rounded-xl focus:outline-none focus:border-indigo-550/40 transition shadow-sm"
-          />
-        </div>
-
-        <div className="space-y-1">
-          <label className="text-[0.62rem] font-bold text-slate-500 uppercase tracking-wider font-mono flex items-center gap-1">
-            <Mail className="size-3.5 text-indigo-650" /> Email
-          </label>
-          <input
-            type="email"
-            value={form.email}
-            onChange={(e) => set("email", e.target.value)}
-            className="w-full px-3 py-2 text-xs border border-slate-200 bg-white text-slate-800 rounded-xl focus:outline-none focus:border-indigo-550/40 transition shadow-sm"
-          />
-        </div>
-
-        
-
-        <div className="pt-2 border-t border-slate-150">
-          <p className="text-xs font-bold uppercase tracking-wider text-slate-800 flex items-center gap-1.5 mb-3 pt-2">
-            <CreditCard className="size-4 text-indigo-650" /> Budget Settings
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="space-y-1">
-              <label className="text-[0.62rem] font-bold text-slate-500 uppercase tracking-wider font-mono">Currency</label>
-              <select
-                value={form.currency}
-                onChange={(e) => set("currency", e.target.value)}
-                className="w-full px-3 py-2 text-xs border border-slate-200 bg-white text-slate-800 rounded-xl focus:outline-none focus:border-indigo-550/40 transition shadow-sm"
-              >
-                <option value="INR">₹ INR – Indian Rupee</option>
-                <option value="USD">$ USD – US Dollar</option>
-                <option value="EUR">€ EUR – Euro</option>
-                <option value="GBP">£ GBP – Pound</option>
-              </select>
-            </div>
-            <div className="space-y-1">
-              <label className="text-[0.62rem] font-bold text-slate-500 uppercase tracking-wider font-mono">Monthly Budget</label>
-              <div className="relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-xs font-bold">₹</span>
-                <input
-                  type="number"
-                  value={form.monthlyIncome}
-                  onChange={(e) => set("monthlyIncome", e.target.value)}
-                  className="w-full pl-7.5 pr-4 py-2 text-xs border border-slate-200 bg-white text-slate-800 rounded-xl focus:outline-none focus:border-indigo-550/40 transition shadow-sm"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <button
-          type="submit"
-          className="w-full flex items-center justify-center gap-1.5 py-2.5 bg-indigo-650 hover:bg-indigo-600 text-white text-xs font-bold rounded-xl border border-indigo-500/40 transition shadow-md shadow-indigo-500/5"
-        >
-          {saved ? (
-            <>
-              <CheckCircle2 className="size-4 text-emerald-500" /> 
-              <span>Saved!</span>
-            </>
-          ) : (
-            <>
-              <Save className="size-3.5" /> 
-              <span>Save Changes</span>
-            </>
-          )}
-        </button>
-      </form>
-
-      {/* Notifications */}
+    
     
 
       {/* Security + Logout */}
@@ -281,10 +214,7 @@ const ProfilePage = () => {
         <p className="text-xs font-bold uppercase tracking-wider text-slate-800 flex items-center gap-1.5 border-b border-slate-150 pb-2.5">
           <Shield className="size-4 text-indigo-650" /> Account Settings
         </p>
-        <button className="w-full text-left px-4 py-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 hover:text-slate-900 transition text-xs font-bold text-slate-600 flex items-center justify-between shadow-sm">
-          <span>Change Password</span>
-          <span className="text-[0.58rem] text-slate-500 font-mono">Last changed 3 months ago</span>
-        </button>
+       
         <button 
           onClick={exportExpenseToCsv}
           className="w-full text-left px-4 py-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 hover:text-slate-900 transition text-xs font-bold text-slate-600 flex items-center justify-between shadow-sm"

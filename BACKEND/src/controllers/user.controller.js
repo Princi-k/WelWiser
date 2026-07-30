@@ -47,8 +47,8 @@ async function registerUser(req,res,next) {
         username:user.username,
         email:user.email,
         monthlyIncome:user.monthlyIncome,
-        mobileNo:user.mobileNo
-        
+        mobileNo:user.mobileNo,
+        token: token
     })
 
   }catch(error){
@@ -112,7 +112,7 @@ async function loginUser(req,res,next) {
         email:user.email,
         monthlyIncome:user.monthlyIncome,
         mobileNo:user.mobileNo,
-       
+        token: token
     });
 
     

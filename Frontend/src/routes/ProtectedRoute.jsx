@@ -3,10 +3,11 @@ import { Navigate } from 'react-router-dom';
 
 const ProtectedRoute = ({ children }) => {
   const token = localStorage.getItem('token');
+  const userId = localStorage.getItem('userId');
   
-  if (!token) {
-    // If no token exists, redirect to login page (root path)
-    return <Navigate to="/" replace />;
+  if (!token || token === 'undefined' || token === 'null' || !userId || userId === 'undefined' || userId === 'null') {
+    // If no token exists, redirect to login page (opens login modal)
+    return <Navigate to="/login" replace />;
   }
   
   return children;

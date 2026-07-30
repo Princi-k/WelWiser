@@ -74,11 +74,11 @@ const DeepAnalytics = () => {
   const monthlyAverage = graphData.length > 0 ? graphData.avg : 0;
   const dataArray = Array.isArray(graphData) ? graphData : [];
 
-  const lowest = dataArray.length > 0 ? dataArray.reduce((max, current) => 
+  const peak = dataArray.length > 0 ? dataArray.reduce((max, current) => 
     (current.amount > max.amount ? current : max), dataArray[0]) : { month: "N/A", amount: 0 };
 
-  const peak = dataArray.length > 0 ? dataArray.reduce((min, current) => 
-    (current.amount < min.amount ? min : current), dataArray[0]) : { month: "N/A", amount: 0 };
+  const lowest = dataArray.length > 0 ? dataArray.reduce((min, current) => 
+    (current.amount < min.amount ? current : min), dataArray[0]) : { month: "N/A", amount: 0 };
 
   const BarTooltip = ({ active, payload, label }) => {
     if (!active || !payload?.length) return null;

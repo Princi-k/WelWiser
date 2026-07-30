@@ -34,6 +34,7 @@ const DashNav = () => {
     } catch (error) {
       console.log(error);
     }
+    localStorage.clear();
     navigate('/');
   }
 

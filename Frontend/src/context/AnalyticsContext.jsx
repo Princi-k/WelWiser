@@ -50,6 +50,12 @@ export function AnalyticsProvider({children}){
               })
               ]);
     
+              if (graphRes.status === 401 || chartRes.status === 401) {
+                localStorage.clear();
+                window.location.href = '/login';
+                return;
+              }
+
               if(!graphRes.ok){
                 throw new Error( graphRes.message||"Failed to fetch analytics data.");
               }

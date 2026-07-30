@@ -46,7 +46,7 @@ const Login = ({ isModal }) => {
       localStorage.setItem('monthlyIncome', data.monthlyIncome)
       localStorage.setItem('userId', data.userId)
       setFormData({ detail: '', password: '' })
-      navigate('/dashboard')
+      navigate('/dashboard');
     } catch (err) {
       setError(err.message)
     } finally {

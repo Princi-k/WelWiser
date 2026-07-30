@@ -234,6 +234,12 @@ export function TransactionProvider({ children }) {
         credentials: "include"
       });
 
+      if (response.status === 401) {
+        localStorage.clear();
+        window.location.href = '/login';
+        return;
+      }
+
       const result = await response.json();
       if (result.success) {
         setPaginatedTransactions(result.data);
@@ -259,6 +265,13 @@ export function TransactionProvider({ children }) {
         },
         credentials: "include"
       });
+
+      if (response.status === 401) {
+        localStorage.clear();
+        window.location.href = '/login';
+        return;
+      }
+
       const result = await response.json();
       if (result.success) {
         setAllTransactions(result.data);
@@ -284,6 +297,11 @@ export function TransactionProvider({ children }) {
         credentials: "include",
         body: JSON.stringify(payload)
       });
+      if (res.status === 401) {
+        localStorage.clear();
+        window.location.href = '/login';
+        return false;
+      }
       if (res.ok) {
         fetchAllExpensesWithoutLimit();
         return true;
@@ -310,6 +328,11 @@ export function TransactionProvider({ children }) {
         credentials: "include",
         body: JSON.stringify(payload)
       });
+      if (res.status === 401) {
+        localStorage.clear();
+        window.location.href = '/login';
+        return;
+      }
       if (res.ok) {
         setPaginatedTransactions((prev) => prev.map((t) => (t._id === updatedItem._id ? { ...updatedItem, ...payload } : t)));
         fetchAllExpensesWithoutLimit();
@@ -330,6 +353,11 @@ export function TransactionProvider({ children }) {
         },
         credentials: "include"
       });
+      if (res.status === 401) {
+        localStorage.clear();
+        window.location.href = '/login';
+        return;
+      }
       if (res.ok) {
         setPaginatedTransactions((prev) => prev.filter((t) => t._id !== id));
         fetchAllExpensesWithoutLimit();

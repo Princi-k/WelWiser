@@ -17,6 +17,8 @@ const DashHeader = () => {
     } catch (error) {
       console.log(error);
     }
+    localStorage.clear();
+    navigate('/');
   }
   const username = localStorage.getItem('username') || 'User';
 

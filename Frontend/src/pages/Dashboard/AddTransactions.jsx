@@ -64,6 +64,12 @@ const AddTransactionPage = () => {
         })
       });
 
+      if (response.status === 401) {
+        localStorage.clear();
+        window.location.href = '/login';
+        return;
+      }
+
       const result = await response.json();
 
       if (!response.ok) {
