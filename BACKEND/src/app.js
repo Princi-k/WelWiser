@@ -19,7 +19,7 @@ mongooseConnect();
 
 app.use(express.json());
 app.use(cookieParser());
-const allowedOrigins = ["https://welwiser-1.onrender.com", "http://localhost:5174"];
+const allowedOrigins = ["https://welwiser.onrender.com", "http://localhost:5174"];
 app.use(cors({
     origin: function (origin, callback) {
         if (!origin || allowedOrigins.includes(origin)) {
