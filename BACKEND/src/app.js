@@ -24,7 +24,7 @@ app.use(cors({
 
 
 
-app.options("*", cors()); // Enable pre-flight for all routes
+
 const mongooseConnect = require('./db/db');
 const userRoute = require('./routes/user.route');
 const expenseRoute = require('./routes/expense.route');
