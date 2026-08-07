@@ -3,6 +3,8 @@ const dns = require('dns');
 dns.setDefaultResultOrder('ipv4first');
 const express = require('express');
 const app = express();
+const cookieParser = require('cookie-parser');
+const cors = require('cors');
 
 app.use(express.json());
 app.use(cookieParser());
@@ -31,8 +33,7 @@ const exportToCsvRoute = require('./routes/exportToCsv.route');
 const expenseParser = require('./routes/expenseParser.routes');
 const aiAdvisorRoute = require('./routes/aiAdvisor.route')
 const {globalErrorHandler} = require('../src/middlewares/errorHandlers');
-const cookieParser = require('cookie-parser');
-const cors = require('cors');
+
 
 
 mongooseConnect();
