@@ -3,6 +3,26 @@ const dns = require('dns');
 dns.setDefaultResultOrder('ipv4first');
 const express = require('express');
 const app = express();
+
+app.use(express.json());
+app.use(cookieParser());
+const allowedOrigins = ["https://welwiser-1.onrender.com","https://welwiser-1.onrender.com/", "http://localhost:5174","http://localhost:3000"];
+app.use(cors({
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error("Not allowed by CORS"));
+        }
+    },
+    methods:["POST","GET","DELETE","PUT","PATCH"],
+    credentials:true
+}))
+
+
+
+
+app.options("*", cors()); // Enable pre-flight for all routes
 const mongooseConnect = require('./db/db');
 const userRoute = require('./routes/user.route');
 const expenseRoute = require('./routes/expense.route');
@@ -17,20 +37,6 @@ const cors = require('cors');
 
 mongooseConnect();
 
-app.use(express.json());
-app.use(cookieParser());
-const allowedOrigins = ["https://welwiser-1.onrender.com", "http://localhost:5174"];
-app.use(cors({
-    origin: function (origin, callback) {
-        if (!origin || allowedOrigins.includes(origin)) {
-            callback(null, true);
-        } else {
-            callback(new Error("Not allowed by CORS"));
-        }
-    },
-    methods:["POST","GET","DELETE","PUT","PATCH"],
-    credentials:true
-}))
 
 
 
