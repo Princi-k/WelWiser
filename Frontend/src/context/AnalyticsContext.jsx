@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../config';
 import React from 'react'
 import { useState,useContext,createContext,useEffect } from 'react';
 
@@ -32,7 +33,7 @@ export function AnalyticsProvider({children}){
             
               const token = localStorage.getItem('token');
               const [ graphRes , chartRes] = await Promise.all([
-                fetch("http://localhost:3000/user/monthlybargraph",{
+                fetch(`${API_BASE_URL}/user/monthlybargraph`,{
                 method:"GET",
                 headers:{
                   "Content-Type":"application/json",
@@ -40,7 +41,7 @@ export function AnalyticsProvider({children}){
                 },
                 credentials:"include"
                 }),
-                fetch("http://localhost:3000/user/piechartdata",{
+                fetch(`${API_BASE_URL}/user/piechartdata`,{
                 method:"GET",
               headers:{
                "Content-Type":"application/json",

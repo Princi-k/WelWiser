@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../../config';
 import React, { useState, useRef, useEffect } from 'react';
 import { Bot, Send, Sparkles, AlertCircle, RefreshCw } from 'lucide-react';
 
@@ -56,7 +57,7 @@ const AiAdvisorPage = () => {
     let accumulatedText = '';
     
     // Connect to SSE AI Advisor endpoint
-    const url = `http://localhost:3000/user/ai-advisor?query=${encodeURIComponent(userQueryText)}`;
+    const url = `${API_BASE_URL}/user/ai-advisor?query=${encodeURIComponent(userQueryText)}`;
     const eventSource = new EventSource(url, { withCredentials: true });
 
     eventSource.onmessage = (event) => {

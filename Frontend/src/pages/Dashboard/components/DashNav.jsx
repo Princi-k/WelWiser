@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../../../config';
 import { ChartNoAxesCombined, LayoutDashboard, LineChart, Receipt, User, BookOpen, PlusSquare, LogOut, Bot } from 'lucide-react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { cn } from '../../../components/ui/utils'
@@ -26,7 +27,7 @@ const DashNav = () => {
   const navigate = useNavigate();
   const logOutBtn = async () => {
     try {
-      await fetch('http://localhost:3000/user/logoutuser', {
+      await fetch(`${API_BASE_URL}/user/logoutuser`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include"

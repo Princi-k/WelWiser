@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../config';
 // import { createContext, useContext, useEffect, useState } from "react";
 
 // const TransactionContext = createContext(null);
@@ -9,7 +10,7 @@
 //     const fetchData = async () =>{
 //        try{
 //           const getAllTransactionResponse = await
-//             fetch("http://localhost:3000/user/page/limit=${limit}&search=${search}&category=${activeTab}",
+//             fetch(`${API_BASE_URL}/user/page/limit=${limit}&search=${search}&category=${activeTab}`,
 //               {method:"Get",
 //                 headers:{
 //                   "Content-Type":"application/json"
@@ -87,7 +88,7 @@
 //       if (category !== "All") queryParams.append("category", category);
 
 //       // Fixed: Converted string to a proper backtick template literal and used query params syntax (?)
-//       const response = await fetch(`http://localhost:3000/user/getExpensePage?${queryParams.toString()}`, {
+//       const response = await fetch(`${API_BASE_URL}/user/getExpensePage?${queryParams.toString()}`, {
 //         method: "GET",
 //         headers: {
 //           "Content-Type": "application/json"
@@ -165,7 +166,7 @@
 //   const fetchPaginatedExpenses = async ({ page = 1, limit = 10, search = "", category = "All" }) => {
 //     try {
 //       const queryParams = new URLSearchParams({ page, limit, search, category });
-//       const res = await fetch(`http://localhost:3000/user/getExpensePage?${queryParams.toString()}`, { credentials: "include" });
+//       const res = await fetch(`${API_BASE_URL}/user/getExpensePage?${queryParams.toString()}`, { credentials: "include" });
 //       const result = await res.json();
 //       if (result.success) {
 //         setPaginatedTransactions(result.data);
@@ -177,7 +178,7 @@
 //   // --- CALLS API 2: For Charts, Graphs & Total Balance Accumulators ---
 //   const fetchAllExpensesWithoutLimit = async () => {
 //     try {
-//       const res = await fetch(`http://localhost:3000/user/getUserExpenses`, { credentials: "include" });
+//       const res = await fetch(`${API_BASE_URL}/user/getUserExpenses`, { credentials: "include" });
 //       const result = await res.json();
 //       if (result.success) {
 //         setAllTransactions(result.data); // Stores everything without truncation
@@ -225,7 +226,7 @@ export function TransactionProvider({ children }) {
       if (category !== "All") queryParams.append("category", category);
 
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:3000/user/expenses-paginated?${queryParams.toString()}`, {
+      const response = await fetch(`${API_BASE_URL}/user/expenses-paginated?${queryParams.toString()}`, {
         method: "GET",
         headers: { 
           "Content-Type": "application/json",
@@ -255,7 +256,7 @@ export function TransactionProvider({ children }) {
   // Calls expense.controller.js (getUserExpense)
   const fetchAllExpensesWithoutLimit = async (range = "") => {
     try {
-      const url = range ? `http://localhost:3000/user/expenses-all?range=${range}` : "http://localhost:3000/user/expenses-all";
+      const url = range ? `${API_BASE_URL}/user/expenses-all?range=${range}` : `${API_BASE_URL}/user/expenses-all`;
       const token = localStorage.getItem('token');
       const response = await fetch(url, {
         method: "GET",
@@ -288,7 +289,7 @@ export function TransactionProvider({ children }) {
         category: formData.category ? formData.category.toLowerCase() : "others"
       };
       const token = localStorage.getItem('token');
-      const res = await fetch("http://localhost:3000/user/expense", {
+      const res = await fetch(`${API_BASE_URL}/user/expense`, {
         method: "POST",
         headers: { 
           "Content-Type": "application/json",
@@ -319,7 +320,7 @@ export function TransactionProvider({ children }) {
         dateAndTime: updatedItem.dateAndTime
       };
       const token = localStorage.getItem('token');
-      const res = await fetch(`http://localhost:3000/user/updateExpense/${updatedItem._id}`, {
+      const res = await fetch(`${API_BASE_URL}/user/updateExpense/${updatedItem._id}`, {
         method: "PATCH",
         headers: { 
           "Content-Type": "application/json",
@@ -346,7 +347,7 @@ export function TransactionProvider({ children }) {
   const deleteTransaction = async (id) => {
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch(`http://localhost:3000/user/deleteExpense/${id}`, {
+      const res = await fetch(`${API_BASE_URL}/user/deleteExpense/${id}`, {
         method: "DELETE",
         headers: {
           ...(token ? { "Authorization": `Bearer ${token}` } : {})

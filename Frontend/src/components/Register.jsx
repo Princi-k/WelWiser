@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../config';
 import React, { useState } from 'react'
 import { BadgeDollarSign, Lock, Mail, Phone, User, ArrowLeft, ChartNoAxesCombined, X } from 'lucide-react'
 import { NavLink, useNavigate } from 'react-router-dom'
@@ -34,7 +35,7 @@ const Register = ({ isModal }) => {
     setLoading(true)
 
     try {
-      const response = await fetch('http://localhost:3000/user/register', {
+      const response = await fetch(`${API_BASE_URL}/user/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

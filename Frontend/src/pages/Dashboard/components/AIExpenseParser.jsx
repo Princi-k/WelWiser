@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../../../config';
 import { useState } from 'react';
 import { Sparkles } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -13,7 +14,7 @@ const AIExpenseParser = () => {
       setLoading(true);
       setError('');
 
-      const response = await fetch("http://localhost:3000/user/expenseParser", {
+      const response = await fetch(`${API_BASE_URL}/user/expenseParser`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

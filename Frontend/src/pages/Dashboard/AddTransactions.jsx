@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../../config';
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { ArrowLeft, PlusCircle, CheckCircle2 } from "lucide-react";
@@ -49,7 +50,7 @@ const AddTransactionPage = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch("http://localhost:3000/user/userexpense", {
+      const response = await fetch(`${API_BASE_URL}/user/userexpense`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

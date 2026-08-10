@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../../config';
 import { useState, useEffect } from "react";
 import { User, Mail, Phone, MapPin, Save, LogOut, CheckCircle2, Shield, Bell, CreditCard, Download, FileText } from "lucide-react";
 
@@ -40,7 +41,7 @@ const ProfilePage = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:3000/user/update', {
+      const response = await fetch(`${API_BASE_URL}/user/update`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -84,7 +85,7 @@ const ProfilePage = () => {
 
   const exportExpenseToCsv = async () => {
     try {
-      window.open("http://localhost:3000/user/exportExpenseToCsv", "_blank");
+      window.open(`${API_BASE_URL}/user/exportExpenseToCsv`, "_blank");
     } catch (err) {
       console.error("Error downloading CSV", err);
     }
@@ -93,7 +94,7 @@ const ProfilePage = () => {
   const fetchExpenseData = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch("http://localhost:3000/user/exportExpenseToCsv?format=json", {
+      const response = await fetch(`${API_BASE_URL}/user/exportExpenseToCsv?format=json`, {
         method: "GET",
         headers: { 
           "Content-Type": "application/json",

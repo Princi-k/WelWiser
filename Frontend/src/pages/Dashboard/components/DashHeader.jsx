@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../../../config';
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import { Bell, LogOut } from 'lucide-react';
@@ -6,7 +7,7 @@ const DashHeader = () => {
   const navigate = useNavigate();
   const logOutBtn = async () => {
     try {
-      const response = await fetch('http://localhost:3000/user/logoutuser', {
+      const response = await fetch(`${API_BASE_URL}/user/logoutuser`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
