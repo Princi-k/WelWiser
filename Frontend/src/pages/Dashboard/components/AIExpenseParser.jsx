@@ -14,10 +14,12 @@ const AIExpenseParser = () => {
       setLoading(true);
       setError('');
 
+      const token = localStorage.getItem('token');
       const response = await fetch(`${API_BASE_URL}/user/expenseParser`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          ...(token ? { "Authorization": `Bearer ${token}` } : {})
         },
         body: JSON.stringify({ prompt }),
         credentials: "include"

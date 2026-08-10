@@ -2,7 +2,7 @@ const express = require("express");
 const jwt = require('jsonwebtoken')
 
 async function authUser(req,res,next) {
-    const token = req.cookies.token || (req.headers.authorization && req.headers.authorization.split(' ')[1]);
+    const token = req.cookies.token || (req.headers.authorization && req.headers.authorization.split(' ')[1]) || req.query.token;
 
     if(!token){
         return res.status(401).json({message:"Login required."});

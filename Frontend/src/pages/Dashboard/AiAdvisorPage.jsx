@@ -57,7 +57,8 @@ const AiAdvisorPage = () => {
     let accumulatedText = '';
     
     // Connect to SSE AI Advisor endpoint
-    const url = `${API_BASE_URL}/user/ai-advisor?query=${encodeURIComponent(userQueryText)}`;
+    const token = localStorage.getItem('token');
+    const url = `${API_BASE_URL}/user/ai-advisor?query=${encodeURIComponent(userQueryText)}&token=${token}`;
     const eventSource = new EventSource(url, { withCredentials: true });
 
     eventSource.onmessage = (event) => {
