@@ -6,11 +6,17 @@ const jwt = require("jsonwebtoken");
 
 async function registerUser(req,res,next) {
  try{
-    const {username , email , password , monthlyIncome ,mobileNo } = req.body ;
-
+    let {username , email , password , monthlyIncome ,mobileNo } = req.body ;
     
+    mobileNo = mobileNo || null; // Convert empty string to null
+
+    const orConditions = [{username},{email}];
+    if (mobileNo) {
+        orConditions.push({mobileNo});
+    }
+
     const isUserAlreadyExist = await userModel.findOne({
-        $or:[{username},{email},{mobileNo}]
+        $or: orConditions
     });
 
 
