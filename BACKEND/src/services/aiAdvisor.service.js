@@ -108,7 +108,7 @@ const aiAdvisor = async (userId, userQuery = "") =>{
          3. DO NOT use asterisks (*) or markdown bullet symbols in the response. Output must contain 3 clear, actionable plain text points matching the aggregated metrics exactly (do not prefix them with asterisks or dashes).`;
 
     const model = await ai.getGenerativeModel({
-        model:"gemini-2.5-flash",
+        model:"gemini-1.5-flash",
         generationConfig:{
             temperature: userQuery ? 0.7 : 0.2
         },

@@ -85,9 +85,38 @@ const ProfilePage = () => {
 
   const exportExpenseToCsv = async () => {
     try {
-      window.open(`${API_BASE_URL}/user/exportExpenseToCsv`, "_blank");
+      const token = localStorage.getItem('token');
+      const response = await fetch(`${API_BASE_URL}/user/exportExpenseToCsv`, {
+        method: "GET",
+        headers: {
+          ...(token ? { "Authorization": `Bearer ${token}` } : {})
+        },
+        credentials: "include"
+      });
+
+      if (!response.ok) {
+        if (response.status === 401) {
+          alert("Login required. Please login again.");
+          window.location.href = '/login';
+        } else {
+          alert("Failed to export CSV.");
+        }
+        return;
+      }
+
+      // Download the blob
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'expenses.csv';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(url);
     } catch (err) {
       console.error("Error downloading CSV", err);
+      alert("Error downloading CSV");
     }
   };
 
