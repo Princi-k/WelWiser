@@ -32,7 +32,14 @@ const AIExpenseParser = () => {
       }
 
       if (!response.ok) {
-        throw new Error("Failed to parse the expense. Please try again.");
+        const errorData = await response.json().catch(() => ({}));
+        let errMsg = errorData.message || "Failed to parse the expense. Please try again.";
+        if (Array.isArray(errorData.error) && errorData.error.length > 0) {
+          errMsg = errorData.error[0].message;
+        } else if (typeof errorData.error === 'string') {
+          errMsg = errorData.error;
+        }
+        throw new Error(errMsg);
       }
 
       const result = await response.json();
