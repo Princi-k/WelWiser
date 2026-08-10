@@ -9,7 +9,7 @@ const systemInstruction = "You are a strict backend data parser for an expense t
 const parseExpenseWithAi = async (promptText) =>{
     
     const model = ai.getGenerativeModel({
-        model:"gemini-1.5-flash",
+        model:"gemini-2.5-flash",
         systemInstruction:systemInstruction 
     });
 
