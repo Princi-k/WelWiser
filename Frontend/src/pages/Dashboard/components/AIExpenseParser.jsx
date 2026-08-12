@@ -7,12 +7,14 @@ const AIExpenseParser = () => {
   const [prompt, setPrompt] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [successMsg, setSuccessMsg] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
     try {
       setLoading(true);
       setError('');
+      setSuccessMsg('');
 
       const token = localStorage.getItem('token');
       const response = await fetch(`${API_BASE_URL}/user/expenseParser`, {
@@ -45,10 +47,10 @@ const AIExpenseParser = () => {
       const result = await response.json();
 
       if (result) {
-        alert('Transaction Added successfully.');
+        setSuccessMsg('✨ Transaction added successfully via AI!');
       }
       setPrompt('');
-      navigate('/dashboard/transactions')
+      setTimeout(() => navigate('/dashboard/transactions'), 1500);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -70,8 +72,14 @@ const AIExpenseParser = () => {
 
       <div className="space-y-3">
         {error && (
-          <p className="rounded-xl bg-rose-50 border border-rose-100 px-3 py-2 text-xs font-semibold text-rose-600">
+          <p className="rounded-xl bg-rose-50 border border-rose-100 px-3 py-2 text-xs font-semibold text-rose-600 shadow-sm">
             {error}
+          </p>
+        )}
+        {successMsg && (
+          <p className="rounded-xl bg-emerald-50 border border-emerald-100 px-3 py-2 text-xs font-semibold text-emerald-600 shadow-sm flex items-center gap-2">
+            <Sparkles className="size-3.5" />
+            {successMsg}
           </p>
         )}
 
@@ -89,7 +97,7 @@ const AIExpenseParser = () => {
             className="inline-flex items-center justify-center rounded-xl text-xs font-bold transition-all duration-300 disabled:pointer-events-none disabled:opacity-50 bg-indigo-600 text-white border border-indigo-500/30 hover:bg-indigo-500 h-9.5 px-4.5 gap-1.5 shadow-sm shadow-indigo-600/5"
           >
             <Sparkles className="size-3.5" />
-            <span>{loading ? 'Tracking expense...' : 'Track Expense with AI'}</span>
+            <span>{loading ? 'Tracking expense...' : 'Add Expense with AI'}</span>
           </button>
         </div>
       </div>
